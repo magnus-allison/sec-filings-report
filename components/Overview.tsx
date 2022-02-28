@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Stock } from '@ant-design/plots';
-
+import { Spin } from 'antd';
 
 const Overview = ({ticker}: any) => {
 
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
       asyncFetch();
@@ -19,16 +20,30 @@ const Overview = ({ticker}: any) => {
             .then((json) => setData(json))
             .catch((error) => {
                 console.log('fetch data failed', error);
-            });
+            })
+            .finally(() => {
+                setLoading(false);
+            })
     };
-    const config = {
-      data,
-      xField: 'date',
-      yField: ['open', 'close', 'high', 'low'],
+
+    const config: any = {
+        data,
+        meta: false,
+        autoFit: true,
+        xField: 'date',
+        yField: ['open', 'close', 'high', 'low'],
     };
 
     //@ts-ignore
-    return <Stock {...config} />;
+    return (
+        <>
+            {loading ? (
+                <div style={{textAlign: 'center'}}>
+                    <Spin />
+                </div>
+            ) : <Stock {...config} />}
+        </>
+    )
 
 }
 

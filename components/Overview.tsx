@@ -27,6 +27,7 @@ const Overview = ({ticker}: any) => {
       yField: ['open', 'close', 'high', 'low'],
     };
 
+    //@ts-ignore
     return <Stock {...config} />;
 
 }

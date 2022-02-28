@@ -106,7 +106,7 @@ const NestedTable = ({ data }: any) => {
         <Table
         className="components-table-demo-nested"
         columns={columns}
-        expandable={{ expandedRowRender }}
+        // expandable={{ expandedRowRender }}
         dataSource={data}
         />
     );

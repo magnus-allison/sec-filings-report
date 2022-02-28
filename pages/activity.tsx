@@ -9,12 +9,12 @@ interface Manager {
     name: string;
     value: string;
     stockNumber: string;
-    stockTickers: any[];
+    stockTickers: string[];
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
 
-    const { data } = await axios.get('https://www.dataroma.com/m/managers.php');
+    const { data } = await axios.get('https://www.dataroma.com/m/allact.php');
     const $ = cheerio.load(data);
 
     const managersData: Manager[] = [];
@@ -24,21 +24,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
         const managerName: string = $(row).find('td').eq(0).text();
         const managerValue: string = $(row).find('td').eq(1).text();
         const managerStockNumber: string = $(row).find('td').eq(2).text();
-        const managerStockTickers: object[] = [];
+        const managerStockTickers: string[] = [];
 
         $(row).find('.sym').each((colIdx, cell) => {
-
-            let parts = ($(cell).find('div').html()?.split('<br>')) ?? [];
-            console.log(parts);
-
-            let stock = {
-                ticker: $(cell).find('a').text(),
-                name: parts[0],
-                percentage: parts[1],
-                price: parts[2],
-            }
-
-            managerStockTickers.push(stock);
+            managerStockTickers.push($(cell).find('a').text());
         });
 
         managersData.push({
@@ -72,7 +61,7 @@ const Home: NextPage<Props> = ({managersData}) => {
             <Header>
             <div className="logo" />
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-                <Menu.Item>Superinvestors</Menu.Item>
+                <Menu.Item>Activity</Menu.Item>
             </Menu>
             </Header>
             <Content style={{ padding: '50px 50px' }}>

@@ -29,7 +29,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
         $(row).find('.sym').each((colIdx, cell) => {
 
             let parts = ($(cell).find('div').html()?.split('<br>')) ?? [];
-            console.log(parts);
 
             let stock = {
                 ticker: $(cell).find('a').text(),

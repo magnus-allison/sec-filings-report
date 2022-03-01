@@ -3,8 +3,7 @@ import cheerio from 'cheerio'
 import axios from 'axios'
 import SuperTable from '../components/SuperTable';
 import ActivityTable from '../components/ActivityTable';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { Tabs } from 'antd';
+import { Layout, Tabs } from 'antd';
 
 interface Manager {
     index: number;
@@ -41,6 +40,7 @@ const fetchManagersData = async () => {
             let parts = ($(cell).find('div').html()?.split('<br>')) ?? [];
 
             let stock = {
+                id: colIdx,
                 ticker: $(cell).find('a').text(),
                 name: parts[0],
                 percentage: parts[1],
@@ -126,26 +126,22 @@ const Home: NextPage<Props> = ({managersData, activityData}) => {
 
     return (
         <Layout className="layout">
-            <Header>
-            <div className="logo" />
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-
-            </Menu>
-            </Header>
             <Content style={{ padding: '0px 50px' }}>
-                <Tabs defaultActiveKey="1" onChange={() => false}>
-                    <TabPane tab="Super Investors" key="1">
-                        <SuperTable data={managersData}/>
-                    </TabPane>
-                    <TabPane tab="Activity" key="2">
-                        <ActivityTable data={activityData}/>
-                    </TabPane>
-                    <TabPane tab="Tab 3" key="3">
-                    Content of Tab Pane 3
-                    </TabPane>
-                </Tabs>
+                <>
+                    <img src="/logosq.png"  alt='Thinkalike Logo' style={{width: '2.5%', borderRadius: '3px', marginTop: '15px', marginBottom: '10px'}} />
+                    <Tabs defaultActiveKey="1" onChange={() => false}>
+                        <TabPane tab="Super Investors" key="1">
+                            <SuperTable data={managersData}/>
+                        </TabPane>
+                        <TabPane tab="Super Investor Activity" key="2">
+                            <ActivityTable data={activityData}/>
+                        </TabPane>
+                        <TabPane tab="Super Investor S&P500" key="3">
+                        Content of Tab Pane 3
+                        </TabPane>
+                    </Tabs>
+                </>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>Thinkalike.io ©2022</Footer>
         </Layout>
     )
 }

@@ -58,24 +58,22 @@ const NestedTable = ({ data }: any) => {
     };
 
   const columns = [
-    { title: 'Portfolio Manager - Firm', dataIndex: 'name', key: 'name' },
-    { title: 'Portfolio Value', dataIndex: 'value', key: 'value' },
-    { title: 'NO. of Stocks', dataIndex: 'stockNumber', key: 'stockNumber' },
+    { title: 'Portfolio Manager - Firm', dataIndex: 'name', key: 'name', sorter: (a: any, b: any) => a.name.localeCompare(b.name)},
+    { title: 'Portfolio Value', dataIndex: 'value', key: 'value'},
+    { title: 'No. of Stocks', dataIndex: 'stockNumber', key: 'stockNumber', sorter: (a: any, b: any) => a.stockNumber - b.stockNumber},
     { title: 'Largest Holdings', dataIndex: 'stockTickers', render: (stockTickers: any[]) => (
         <span>
             {stockTickers.map((ticker: any) => (
                 <Popover
-                    key={ticker}
-                    placement="bottom"
+                    key={ticker.id}
                     title={ticker.name}
                     content={<Overview ticker={ticker.ticker}/>}
-                    arrowPointAtCenter
                     overlayStyle={{
                         width: "400px",
                         height: "350px"
                     }}
                 >
-                    <Tag color={'geekblue'}>
+                    <Tag color={'blue'}>
                         {ticker.ticker.toUpperCase()}
                     </Tag>
                 </Popover>
@@ -106,6 +104,13 @@ const NestedTable = ({ data }: any) => {
         <Table
         className="components-table-demo-nested"
         columns={columns}
+        pagination={{
+            position: ['bottomCenter'],
+            pageSize: 10,
+            hideOnSinglePage: true,
+            showSizeChanger: false,
+        }}
+        // scroll={{ y: 440 }}
         // expandable={{ expandedRowRender }}
         dataSource={data}
         />

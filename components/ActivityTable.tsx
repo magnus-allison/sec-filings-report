@@ -75,7 +75,7 @@ const NestedTable = ({ data }: any) => {
                         height: "350px"
                     }}
                 >
-                    <Tag color={(ticker.percentage[0] === 'A' ? 'geekblue' : 'red')}>
+                    <Tag color={(ticker.percentage[0] === 'A' ? 'green' : 'red')}>
                         {ticker.ticker.toUpperCase()}
                     </Tag>
                 </Popover>
@@ -90,7 +90,14 @@ const NestedTable = ({ data }: any) => {
         <Table
         className="components-table-demo-nested"
         columns={columns}
-
+        pagination={{
+            position: ['bottomCenter'],
+            pageSize: 10,
+            hideOnSinglePage: true,
+            showSizeChanger: false,
+        }}
+        // scroll={{ y: 440 }}
+        // expandable={{ expandedRowRender }}
         dataSource={data}
         />
     );

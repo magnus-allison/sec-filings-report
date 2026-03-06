@@ -1,9 +1,10 @@
 import { fetchActivityData, fetchManagersData } from '@/api';
 import ManagersTable from '@/components/managers/Table';
 import ActivityTable from '@/components/activity/Table';
+import MostBoughtTable from '@/components/dashboard/MostBoughtTable';
 import StatsOverview from '@/components/dashboard/StatsOverview';
 import { Tabs, Typography } from 'antd';
-import { FundViewOutlined, SwapOutlined } from '@ant-design/icons';
+import { FundViewOutlined, SwapOutlined, FireOutlined } from '@ant-design/icons';
 
 export default async function Home() {
 	const [managersData, activityData] = await Promise.all([fetchManagersData(), fetchActivityData()]);
@@ -36,6 +37,16 @@ export default async function Home() {
 							</span>
 						),
 						children: <ActivityTable data={activityData} />
+					},
+					{
+						key: 'most-bought',
+						label: (
+							<span>
+								<FireOutlined style={{ marginRight: 8 }} />
+								Most Bought
+							</span>
+						),
+						children: <MostBoughtTable managers={managersData} activities={activityData} />
 					}
 				]}
 			/>

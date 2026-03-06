@@ -98,10 +98,12 @@ export default function StatsOverview({ managers, activities }: StatsProps) {
 									{card.icon}
 								</span>
 							}
-							valueStyle={{
-								fontSize: 28,
-								fontWeight: 700,
-								color: '#111827'
+							styles={{
+								content: {
+									fontSize: 28,
+									fontWeight: 700,
+									color: '#111827'
+								}
 							}}
 						/>
 					</Card>

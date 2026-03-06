@@ -1,0 +1,112 @@
+'use client';
+
+import { Card, Col, Row, Statistic } from 'antd';
+import { TeamOutlined, DollarOutlined, BarChartOutlined, RiseOutlined } from '@ant-design/icons';
+import type { Manager, Activity } from '@/api';
+
+interface StatsProps {
+	managers: Manager[];
+	activities: Activity[];
+}
+
+function parsePortfolioValue(value: string): number {
+	let multiplier = 1;
+	let cleaned = value;
+
+	if (cleaned.endsWith('B')) {
+		multiplier = 1e9;
+		cleaned = cleaned.slice(1, -1);
+	} else if (cleaned.endsWith('M')) {
+		multiplier = 1e6;
+		cleaned = cleaned.slice(1, -1);
+	} else {
+		cleaned = cleaned.slice(1);
+	}
+
+	return parseFloat(cleaned) * multiplier;
+}
+
+function formatCurrency(value: number): string {
+	if (value >= 1e12) return `$${(value / 1e12).toFixed(1)}T`;
+	if (value >= 1e9) return `$${(value / 1e9).toFixed(1)}B`;
+	if (value >= 1e6) return `$${(value / 1e6).toFixed(1)}M`;
+	return `$${value.toLocaleString()}`;
+}
+
+export default function StatsOverview({ managers, activities }: StatsProps) {
+	const totalManagers = managers.length;
+	const totalAUM = managers.reduce((sum, m) => sum + parsePortfolioValue(m.value), 0);
+	const totalStocks = new Set(managers.flatMap((m) => m.stockTickers.map((t) => t.ticker))).size;
+	const activityPeriods = new Set(activities.map((a) => a.period)).size;
+
+	const cards = [
+		{
+			title: 'Managers Tracked',
+			value: totalManagers,
+			icon: <TeamOutlined />,
+			color: '#4f46e5'
+		},
+		{
+			title: 'Total AUM',
+			value: formatCurrency(totalAUM),
+			icon: <DollarOutlined />,
+			color: '#10b981'
+		},
+		{
+			title: 'Unique Stocks',
+			value: totalStocks,
+			icon: <BarChartOutlined />,
+			color: '#3b82f6'
+		},
+		{
+			title: 'Filing Periods',
+			value: activityPeriods,
+			icon: <RiseOutlined />,
+			color: '#f59e0b'
+		}
+	];
+
+	return (
+		<Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
+			{cards.map((card) => (
+				<Col key={card.title} xs={24} sm={12} lg={6}>
+					<Card
+						hoverable
+						style={{
+							borderRadius: 12,
+							border: 'none',
+							boxShadow: '0 1px 3px rgba(0,0,0,0.06)'
+						}}
+						styles={{ body: { padding: '20px 24px' } }}
+					>
+						<Statistic
+							title={
+								<span style={{ color: '#6b7280', fontSize: 13, fontWeight: 500 }}>
+									{card.title}
+								</span>
+							}
+							value={typeof card.value === 'number' ? card.value : undefined}
+							formatter={typeof card.value === 'string' ? () => card.value : undefined}
+							prefix={
+								<span
+									style={{
+										color: card.color,
+										fontSize: 20,
+										marginRight: 4
+									}}
+								>
+									{card.icon}
+								</span>
+							}
+							valueStyle={{
+								fontSize: 28,
+								fontWeight: 700,
+								color: '#111827'
+							}}
+						/>
+					</Card>
+				</Col>
+			))}
+		</Row>
+	);
+}

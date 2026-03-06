@@ -20,7 +20,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
 				}}
 			>
 				<Typography.Text strong style={{ fontSize: 16 }}>
-					Super Investors
+					SEC Filings Report
 				</Typography.Text>
 				<Typography.Text type='secondary' style={{ fontSize: 13 }}>
 					13F Filings

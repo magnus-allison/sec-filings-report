@@ -53,9 +53,7 @@ const columns: ColumnsType<Activity> = [
 						</Tooltip>
 					);
 				})}
-				{tickers.length > 10 && (
-					<Tag style={{ margin: 0 }}>+{tickers.length - 10}</Tag>
-				)}
+				{tickers.length > 10 && <Tag style={{ margin: 0 }}>+{tickers.length - 10}</Tag>}
 			</Flex>
 		)
 	}
@@ -107,7 +105,7 @@ export default function ActivityTable({ data }: { data: Activity[] }) {
 				rowKey={(record) => record.index}
 				dataSource={filtered}
 				pagination={{
-						placement: ['bottomCenter'],
+					placement: ['bottomCenter'],
 					pageSize: 12,
 					hideOnSinglePage: true,
 					showSizeChanger: false,

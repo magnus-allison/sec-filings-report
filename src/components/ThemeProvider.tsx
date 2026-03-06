@@ -11,8 +11,7 @@ const customTheme = {
 		colorWarning: '#f59e0b',
 		colorInfo: '#3b82f6',
 		borderRadius: 10,
-		fontFamily:
-			"'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+		fontFamily: "'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
 		colorBgContainer: '#ffffff',
 		colorBgLayout: '#f5f5f7',
 		wireframe: false

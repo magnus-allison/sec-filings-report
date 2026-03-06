@@ -75,17 +75,12 @@ const columns: ColumnsType<Manager> = [
 							</>
 						}
 					>
-						<Tag
-							color='blue'
-							style={{ cursor: 'pointer', margin: 0 }}
-						>
+						<Tag color='blue' style={{ cursor: 'pointer', margin: 0 }}>
 							{t.ticker.toUpperCase()}
 						</Tag>
 					</Tooltip>
 				))}
-				{tickers.length > 8 && (
-					<Tag style={{ margin: 0 }}>+{tickers.length - 8}</Tag>
-				)}
+				{tickers.length > 8 && <Tag style={{ margin: 0 }}>+{tickers.length - 8}</Tag>}
 			</Flex>
 		)
 	}
@@ -137,7 +132,7 @@ export default function ManagersTable({ data }: { data: Manager[] }) {
 				rowKey={(record) => record.index}
 				dataSource={filtered}
 				pagination={{
-						placement: ['bottomCenter'],
+					placement: ['bottomCenter'],
 					pageSize: 12,
 					hideOnSinglePage: true,
 					showSizeChanger: false,

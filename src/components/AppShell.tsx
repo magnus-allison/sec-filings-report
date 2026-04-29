@@ -1,32 +1,30 @@
 'use client';
 
-import { Layout, Typography, Flex } from 'antd';
+import { Layout, Typography, Space } from 'antd';
 import type { ReactNode } from 'react';
 
 const { Header, Content } = Layout;
 
 export default function AppShell({ children }: { children: ReactNode }) {
 	return (
-		<Layout style={{ minHeight: '100vh', background: '#f5f5f7' }}>
+		<Layout className='app-shell-layout'>
 			<Header
-				style={{
-					background: '#fff',
-					padding: '0 32px',
-					height: 56,
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'space-between',
-					borderBottom: '1px solid #e5e7eb'
-				}}
+				className='app-shell-header'
+				style={{ padding: '0 32px', height: 72, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
 			>
-				<Typography.Text strong style={{ fontSize: 16 }}>
-					SEC Filings Report
-				</Typography.Text>
+				<Space orientation='vertical' size={2} className='app-shell-title-stack'>
+					<Typography.Text strong className='app-shell-title'>
+						SEC FILINGS REPORT
+					</Typography.Text>
+					<Typography.Text type='secondary' className='app-shell-subtitle'>
+						Live view of 13F manager positioning
+					</Typography.Text>
+				</Space>
 				<Typography.Text type='secondary' style={{ fontSize: 13 }}>
-					13F Filings
+					SEC 13F
 				</Typography.Text>
 			</Header>
-			<Content style={{ padding: '24px 32px', maxWidth: 1400, width: '100%', margin: '0 auto' }}>
+			<Content style={{ padding: '28px 24px 36px', maxWidth: 1400, width: '100%', margin: '0 auto' }}>
 				{children}
 			</Content>
 		</Layout>

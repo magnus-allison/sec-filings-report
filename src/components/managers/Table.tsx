@@ -75,7 +75,7 @@ const columns: ColumnsType<Manager> = [
 							</>
 						}
 					>
-						<Tag color='blue' style={{ cursor: 'pointer', margin: 0 }}>
+						<Tag color='cyan' style={{ cursor: 'pointer', margin: 0 }}>
 							{t.ticker.toUpperCase()}
 						</Tag>
 					</Tooltip>
@@ -101,22 +101,18 @@ export default function ManagersTable({ data }: { data: Manager[] }) {
 
 	return (
 		<Card
-			style={{
-				borderRadius: 12,
-				border: 'none',
-				boxShadow: '0 1px 3px rgba(0,0,0,0.06)'
-			}}
+			className='surface-card'
 			styles={{ body: { padding: 0 } }}
 		>
 			<Flex align='center' justify='space-between' style={{ padding: '16px 24px' }}>
 				<Flex align='center' gap={8}>
-					<DollarOutlined style={{ fontSize: 18, color: '#4f46e5' }} />
+					<DollarOutlined style={{ fontSize: 18, color: '#0f766e' }} />
 					<Typography.Title level={5} style={{ margin: 0 }}>
 						Portfolio Managers
 					</Typography.Title>
 					<Badge
 						count={filtered.length}
-						style={{ background: '#eef2ff', color: '#4f46e5', boxShadow: 'none' }}
+						style={{ background: '#e6fffb', color: '#0f766e', boxShadow: 'none' }}
 					/>
 				</Flex>
 				<Input.Search

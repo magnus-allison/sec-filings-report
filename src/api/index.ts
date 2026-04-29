@@ -23,8 +23,23 @@ export interface Activity {
 	stockTickers: StockTicker[];
 }
 
+export interface SPGridEntry {
+	index: number;
+	ticker: string;
+	name: string;
+	sector: string;
+	ownership: number;
+	holdPrice: string;
+}
+
+function buildDataUrl(path: string): string | null {
+	const baseUrl = process.env.DATA_API_URL;
+	if (!baseUrl) return null;
+	return `${baseUrl.replace(/\/$/, '')}${path}`;
+}
+
 export async function fetchManagersData(): Promise<Manager[]> {
-	const url = process.env.MANAGERS_API_URL;
+	const url = buildDataUrl('/m/managers.php');
 	if (!url) return [];
 
 	const rawResponse = await fetch(url);
@@ -60,7 +75,7 @@ export async function fetchManagersData(): Promise<Manager[]> {
 }
 
 export async function fetchActivityData(): Promise<Activity[]> {
-	const url = process.env.ACTIVITY_API_URL;
+	const url = buildDataUrl('/m/allact.php?typ=a');
 	if (!url) return [];
 
 	const rawResponse = await fetch(url);
@@ -92,4 +107,39 @@ export async function fetchActivityData(): Promise<Activity[]> {
 	});
 
 	return activities;
+}
+
+export async function fetchSPGridData(): Promise<SPGridEntry[]> {
+	try {
+		const rawResponse = await fetch('https://www.dataroma.com/m/grid.php');
+		const data = await rawResponse.text();
+		const $ = load(data);
+		const rows: SPGridEntry[] = [];
+
+		$('#grid td .tit_ctl').each((idx, cell) => {
+			const ticker = $(cell).find('a').first().text().trim();
+			const detailsHtml = $(cell).find('div').first().html() ?? '';
+			const details = detailsHtml.split('<br>').map((part) => load(`<x>${part}</x>`)('x').text().trim());
+			const name = details[0] || '';
+			const sector = details[1]?.replace(/^\(|\)$/g, '') || '';
+			const ownershipMatch = details[2]?.match(/(\d+)/);
+			const holdPriceText = $(cell).find('.hp').first().text().trim();
+
+			if (!ticker) return;
+
+			rows.push({
+				index: idx,
+				ticker,
+				name,
+				sector,
+				ownership: ownershipMatch ? Number(ownershipMatch[1]) : 0,
+				holdPrice: holdPriceText.replace(/^Hold Price:\s*/i, '')
+			});
+		});
+
+		return rows;
+	} catch (error) {
+		console.error('Failed to fetch S&P grid data:', error);
+		return [];
+	}
 }

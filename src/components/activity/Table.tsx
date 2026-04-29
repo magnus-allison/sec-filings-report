@@ -20,7 +20,7 @@ const columns: ColumnsType<Activity> = [
 		key: 'period',
 		width: 140,
 		render: (period: string) => (
-			<Tag color='purple' style={{ margin: 0 }}>
+			<Tag color='geekblue' style={{ margin: 0 }}>
 				{period}
 			</Tag>
 		)
@@ -74,22 +74,18 @@ export default function ActivityTable({ data }: { data: Activity[] }) {
 
 	return (
 		<Card
-			style={{
-				borderRadius: 12,
-				border: 'none',
-				boxShadow: '0 1px 3px rgba(0,0,0,0.06)'
-			}}
+			className='surface-card'
 			styles={{ body: { padding: 0 } }}
 		>
 			<Flex align='center' justify='space-between' style={{ padding: '16px 24px' }}>
 				<Flex align='center' gap={8}>
-					<SwapOutlined style={{ fontSize: 18, color: '#7c3aed' }} />
+					<SwapOutlined style={{ fontSize: 18, color: '#0369a1' }} />
 					<Typography.Title level={5} style={{ margin: 0 }}>
 						Recent Activity
 					</Typography.Title>
 					<Badge
 						count={filtered.length}
-						style={{ background: '#f3e8ff', color: '#7c3aed', boxShadow: 'none' }}
+						style={{ background: '#e0f2fe', color: '#0369a1', boxShadow: 'none' }}
 					/>
 				</Flex>
 				<Input.Search

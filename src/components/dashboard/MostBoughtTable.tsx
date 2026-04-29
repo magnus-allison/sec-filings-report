@@ -108,7 +108,7 @@ export default function MostBoughtTable({
 			width: 100,
 			sorter: (a, b) => a.ticker.localeCompare(b.ticker),
 			render: (ticker: string) => (
-				<Tag color='blue' style={{ margin: 0, fontWeight: 600 }}>
+				<Tag color='cyan' style={{ margin: 0, fontWeight: 600 }}>
 					{ticker}
 				</Tag>
 			)
@@ -134,7 +134,7 @@ export default function MostBoughtTable({
 							percent={Math.round((holders / maxHolders) * 100)}
 							showInfo={false}
 							size='small'
-							strokeColor='#4f46e5'
+							strokeColor='#0f766e'
 							style={{ flex: 1, margin: 0 }}
 						/>
 						<Typography.Text style={{ fontSize: 13, minWidth: 60 }}>
@@ -188,22 +188,18 @@ export default function MostBoughtTable({
 
 	return (
 		<Card
-			style={{
-				borderRadius: 12,
-				border: 'none',
-				boxShadow: '0 1px 3px rgba(0,0,0,0.06)'
-			}}
+			className='surface-card'
 			styles={{ body: { padding: 0 } }}
 		>
 			<Flex align='center' justify='space-between' style={{ padding: '16px 24px' }}>
 				<Flex align='center' gap={8}>
-					<FireOutlined style={{ fontSize: 18, color: '#ef4444' }} />
+					<FireOutlined style={{ fontSize: 18, color: '#b45309' }} />
 					<Typography.Title level={5} style={{ margin: 0 }}>
 						Most Popular Stocks
 					</Typography.Title>
 					<Badge
 						count={filtered.length}
-						style={{ background: '#fef2f2', color: '#ef4444', boxShadow: 'none' }}
+						style={{ background: '#fef3c7', color: '#b45309', boxShadow: 'none' }}
 					/>
 				</Flex>
 				<Input.Search

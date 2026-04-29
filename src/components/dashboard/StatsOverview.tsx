@@ -44,25 +44,25 @@ export default function StatsOverview({ managers, activities }: StatsProps) {
 			title: 'Managers Tracked',
 			value: totalManagers,
 			icon: <TeamOutlined />,
-			color: '#4f46e5'
+			color: '#0f766e'
 		},
 		{
 			title: 'Total AUM',
 			value: formatCurrency(totalAUM),
 			icon: <DollarOutlined />,
-			color: '#10b981'
+			color: '#0369a1'
 		},
 		{
 			title: 'Unique Stocks',
 			value: totalStocks,
 			icon: <BarChartOutlined />,
-			color: '#3b82f6'
+			color: '#7c3aed'
 		},
 		{
 			title: 'Filing Periods',
 			value: activityPeriods,
 			icon: <RiseOutlined />,
-			color: '#f59e0b'
+			color: '#b45309'
 		}
 	];
 
@@ -71,12 +71,8 @@ export default function StatsOverview({ managers, activities }: StatsProps) {
 			{cards.map((card) => (
 				<Col key={card.title} xs={24} sm={12} lg={6}>
 					<Card
+						className='surface-card stat-card'
 						hoverable
-						style={{
-							borderRadius: 12,
-							border: 'none',
-							boxShadow: '0 1px 3px rgba(0,0,0,0.06)'
-						}}
 						styles={{ body: { padding: '20px 24px' } }}
 					>
 						<Statistic

@@ -10,3 +10,11 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the dashboard.
+
+## Environment
+
+Set `DATA_API_URL` to the DataRoma base URL used by this app (for example `https://www.dataroma.com`).
+
+- Managers endpoint: `${DATA_API_URL}/m/managers.php`
+- Activity endpoint: `${DATA_API_URL}/m/allact.php?typ=a`
+- S&P Grid endpoint: pulled directly from `https://www.dataroma.com/m/grid.php`
